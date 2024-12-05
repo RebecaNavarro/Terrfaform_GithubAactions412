@@ -56,7 +56,7 @@ resource "aws_security_group" "nginx-server2-sg" {
  }
 }
 
-resource "aws_instance" "nginx-server2" {
+resource "aws_instance" "nginx-server3" {
  ami = "ami-0866a3c8686eaeeba"  # agrega el ami Amazon Linux de acuerdo a tu region
  instance_type = "t2.micro"
  #count = 2
