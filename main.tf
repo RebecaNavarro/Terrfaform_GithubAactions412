@@ -24,7 +24,7 @@ resource "aws_instance" "nginx-server" {
 
 resource "aws_key_pair" "nginx-server-ssh" {
    key_name   = "nginx-server-ssh"
-   public_key = ${{ secrets.NGINX_SERVER_KEY_PUB }} 
+   public_key = ${{ secrets.NGINX_SECRET_KEY }} 
 }
 
 resource "aws_security_group" "nginx-server2-sg" {
@@ -64,7 +64,7 @@ resource "aws_instance" "nginx-server2" {
  tags = {
    Name        = "Upb-Nginx"
    Environment = "test"
-   Owner       = "rayner.villalba@gmail.com" # Puedes agregar tu mail para el tag
+   Owner       = "becanavarro2003@gmail.com" # Puedes agregar tu mail para el tag
    Team        = "DevOps"
    Project     = "webinar"
  }
