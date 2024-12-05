@@ -31,6 +31,13 @@ resource "aws_security_group" "nginx-server2-sg" {
  name        = "nginx-server2-sg"
  description = "Security group allowing SSH and HTTP access"
 
+resource "aws_security_group" "nginx-server2-sg" {
+  ...
+}
+
+resource "aws_instance" "nginx-server2" {
+  ...
+}
 
  ingress {
    from_port   = 22
