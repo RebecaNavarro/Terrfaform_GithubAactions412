@@ -24,20 +24,12 @@ resource "aws_instance" "nginx-server" {
 
 resource "aws_key_pair" "nginx-server-ssh" {
    key_name   = "nginx-server-ssh"
-   public_key = echo "${{ secrets.NGINX_SERVER_KEY_PUB }}" > nginx-server.key.pub
+   public_key = ${{ secrets.NGINX_SERVER_KEY_PUB }} > nginx-server.key.pub
 }
 
 resource "aws_security_group" "nginx-server2-sg" {
  name        = "nginx-server2-sg"
  description = "Security group allowing SSH and HTTP access"
-
-resource "aws_security_group" "nginx-server2-sg" {
-  ...
-}
-
-resource "aws_instance" "nginx-server2" {
-  ...
-}
 
  ingress {
    from_port   = 22
