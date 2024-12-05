@@ -24,12 +24,13 @@ resource "aws_instance" "nginx-server" {
 
 resource "aws_key_pair" "nginx-server-ssh" {
    key_name   = "nginx-server-ssh"
-   public_key = ${{ secrets.NGINX_SECRET_KEY }} 
+   public_key = file("nginx-server.key.pub")
 }
 
 resource "aws_security_group" "nginx-server2-sg" {
  name        = "nginx-server2-sg"
  description = "Security group allowing SSH and HTTP access"
+
 
  ingress {
    from_port   = 22
