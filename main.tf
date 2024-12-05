@@ -78,6 +78,6 @@ resource "aws_instance" "nginx-server2" {
              sudo systemctl start nginx
              EOF
  user_data_replace_on_change = true
- key_name = aws_key_pair.nginx-server2-ssh.key_name
+ key_name = aws_key_pair.nginx-server-ssh.key_name
  vpc_security_group_ids = [ aws_security_group.nginx-server2-sg.id ]
 }
