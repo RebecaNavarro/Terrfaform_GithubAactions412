@@ -28,7 +28,7 @@ resource "aws_key_pair" "nginx-server-ssh" {
 }
 
 resource "aws_security_group" "nginx-server-sg" {
- name        = "nginx-server-sg"
+ name        = "nginx-server-sg2"
  description = "Security group allowing SSH and HTTP access"
 
 
