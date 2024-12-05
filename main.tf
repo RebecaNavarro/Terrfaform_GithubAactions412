@@ -2,7 +2,7 @@ provider "aws" {
  region = "us-east-1"
 }
 
-resource "aws_instance" "nginx-server" {
+resource "aws_instance" "nginx-server2" {
  ami = "ami-0453ec754f44f9a4a"  # agrega el ami Amazon Linux de acuerdo a tu region
  instance_type = "t2.micro"
  #count = 2
@@ -22,8 +22,8 @@ resource "aws_instance" "nginx-server" {
  user_data_replace_on_change = true
 }
 
-resource "aws_key_pair" "nginx-server-ssh" {
-   key_name   = "nginx-server-ssh"
+resource "aws_key_pair" "nginx-server2-ssh" {
+   key_name   = "nginx-server2-ssh"
    public_key = file("nginx-server.key.pub")
 }
 
@@ -78,6 +78,6 @@ resource "aws_instance" "nginx-server2" {
              sudo systemctl start nginx
              EOF
  user_data_replace_on_change = true
- key_name = aws_key_pair.nginx-server-ssh.key_name
+ key_name = aws_key_pair.nginx-server2-ssh.key_name
  vpc_security_group_ids = [ aws_security_group.nginx-server2-sg.id ]
 }
