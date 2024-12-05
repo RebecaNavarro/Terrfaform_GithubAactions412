@@ -22,13 +22,13 @@ resource "aws_instance" "nginx-server2" {
  user_data_replace_on_change = true
 }
 
-resource "aws_key_pair" "nginx-server2-ssh" {
-   key_name   = "nginx-server2-ssh"
+resource "aws_key_pair" "nginx-server-ssh" {
+   key_name   = "nginx-server-ssh"
    public_key = file("nginx-server.key.pub")
 }
 
-resource "aws_security_group" "nginx-server2-sg" {
- name        = "nginx-server2-sg"
+resource "aws_security_group" "nginx-server-sg" {
+ name        = "nginx-server-sg"
  description = "Security group allowing SSH and HTTP access"
 
 
@@ -78,6 +78,6 @@ resource "aws_instance" "nginx-server3" {
              sudo systemctl start nginx
              EOF
  user_data_replace_on_change = true
- key_name = aws_key_pair.nginx-server2-ssh.key_name
- vpc_security_group_ids = [ aws_security_group.nginx-server2-sg.id ]
+ key_name = aws_key_pair.nginx-server-ssh.key_name
+ vpc_security_group_ids = [ aws_security_group.nginx-server-sg.id ]
 }
