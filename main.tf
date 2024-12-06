@@ -2,7 +2,7 @@ provider "aws" {
  region = "us-east-1"
 }
 
-resource "aws_instance" "nginx-server2" {
+resource "aws_instance" "nginx-server" {
  ami = "ami-0453ec754f44f9a4a"  # agrega el ami Amazon Linux de acuerdo a tu region
  instance_type = "t2.micro"
  #count = 2
