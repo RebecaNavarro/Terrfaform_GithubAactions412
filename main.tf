@@ -1,36 +1,41 @@
 provider "aws" {
- region = "us-east-1"
+  region = "us-east-1"
 }
 
 resource "aws_instance" "nginx-server" {
- ami = "ami-0453ec754f44f9a4a"  # agrega el ami Amazon Linux de acuerdo a tu region
- instance_type = "t2.micro"
- #count = 2
+  ami           = "ami-0453ec754f44f9a4a"  # Ajusta el AMI según tu región
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.nginx-server-ssh.key_name
+  vpc_security_group_ids = [aws_security_group.nginx-server-sg.id]
 
+  tags = {
+    Name        = "Upb-Nginx"
+    Environment = "test"
+    Owner       = "becanavarro2003@gmail.com"  # Puedes agregar tu mail para el tag
+    Team        = "DevOps"
+    Project     = "webinar"
+  }
 
- tags = {
-   Name = "Upb-Nginx"
-   Environment = "test"
-   Owner       = "becanavarro2003@gmail.com" # Puedes agregar tu mail para el tag
-   Team        = "DevOps"
-   Project     = "webinar"
- }
-
-
- user_data = <<-EOF
-             #!/bin/bash
-             sudo yum install -y nginx
-             sudo systemctl enable nginx
-             sudo systemctl start nginx
-             EOF
- user_data_replace_on_change = true
- key_name = aws_key_pair.nginx-server-ssh.key_name
- vpc_security_group_ids = [ aws_security_group.nginx-server-sg.id ]
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo yum install -y nginx
+              sudo systemctl enable nginx
+              sudo systemctl start nginx
+              EOF
+  user_data_replace_on_change = true
 }
 
 resource "aws_key_pair" "nginx-server-ssh" {
-   key_name   = "nginx-server-ssh"
-   public_key = file("nginx-server.key.pub")
+  key_name   = "nginx-server-ssh"
+  public_key = file("nginx-server.key.pub")
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+
+  tags = {
+    Name = "main-vpc"
+  }
 }
 
 resource "aws_security_group" "nginx-server-sg" {
